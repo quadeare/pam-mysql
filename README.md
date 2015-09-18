@@ -2,8 +2,8 @@
 
 Pam-mysql seems to be unmaintained, so i decided to provide some fixes.
 
-  - Memory leak error | Fix
-  - SHA1 and MD5 encryption | Fix
+  - Memory leak error | Fixed
+  - SHA1 and MD5 encryption | Fixed
 
 ## Compilation
 
