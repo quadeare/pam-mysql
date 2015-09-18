@@ -3,17 +3,17 @@
  *
  * Copyright (C) 1998-2005 Gunay Arslan and the contributors.
  * All rights reserved.
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -208,7 +208,7 @@ enum _pam_mysql_config_token_t {
 #define PAM_MYSQL_CAP_CHAUTHTOK_SELF		0x0001
 #define PAM_MYSQL_CAP_CHAUTHTOK_OTHERS		0x0002
 /* }}} */
- 
+
 /* {{{ typedefs */
 /* {{{ typedef struct pam_mysql_ctx_t */
 typedef struct _pam_mysql_ctx_t {
@@ -347,7 +347,7 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc,
 		const char **argv);
 /* }}} */
 
-/* {{{ static prototypes */ 
+/* {{{ static prototypes */
 static void pam_mysql_cleanup_hdlr(pam_handle_t *pamh, void * voiddata, int status);
 
 /* {{{ pam_mysql methods */
@@ -550,7 +550,7 @@ static void *memcspn(void *buf, size_t buf_len, const unsigned char *delims,
 /* }}} */
 
 /* {{{ pam_mysql_md5_data
- * 
+ *
  * AFAIK, only FreeBSD has MD5Data() defined in md5.h
  * better MD5 support will appear in 0.5
  */
@@ -672,7 +672,7 @@ static pam_mysql_err_t pam_mysql_boolean_opt_setter(void *val, const char *newva
 			strcasecmp(newval_str, "N") != 0 &&
 			strcasecmp(newval_str, "false") != 0 &&
 			strcasecmp(newval_str, "no") != 0);
-		
+
 	return PAM_MYSQL_ERR_SUCCESS;
 }
 /* }}} */
@@ -849,7 +849,7 @@ static pam_mysql_err_t pam_mysql_str_reserve(pam_mysql_str_t *str, size_t len)
 			new_size *= 2;
 			if (cv > new_size) {
 				syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "allocation failure at " __FILE__ ":%d", __LINE__);
-				return PAM_MYSQL_ERR_ALLOC;		
+				return PAM_MYSQL_ERR_ALLOC;
 			}
 			cv = new_size;
 		} while (new_size < len_req);
@@ -857,7 +857,7 @@ static pam_mysql_err_t pam_mysql_str_reserve(pam_mysql_str_t *str, size_t len)
 		if (str->mangle) {
 			if (NULL == (new_buf = xcalloc(new_size, sizeof(char)))) {
 				syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "allocation failure at " __FILE__ ":%d", __LINE__);
-				return PAM_MYSQL_ERR_ALLOC;		
+				return PAM_MYSQL_ERR_ALLOC;
 			}
 
 			memcpy(new_buf, str->p, str->len);
@@ -869,12 +869,12 @@ static pam_mysql_err_t pam_mysql_str_reserve(pam_mysql_str_t *str, size_t len)
 			if (str->alloc_size == 0) {
 				if (NULL == (new_buf = xcalloc(new_size, sizeof(char)))) {
 					syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "allocation failure at " __FILE__ ":%d", __LINE__);
-					return PAM_MYSQL_ERR_ALLOC;		
+					return PAM_MYSQL_ERR_ALLOC;
 				}
 			} else {
 				if (NULL == (new_buf = xrealloc(str->p, new_size, sizeof(char)))) {
 					syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "allocation failure at " __FILE__ ":%d", __LINE__);
-					return PAM_MYSQL_ERR_ALLOC;		
+					return PAM_MYSQL_ERR_ALLOC;
 				}
 			}
 		}
@@ -1302,7 +1302,7 @@ static pam_mysql_err_t pam_mysql_config_scanner_next_token(
 					if ((err = pam_mysql_stream_getc(scanner->stream, &c))) {
 						return err;
 					}
-	
+
 					if (c != '\n') {
 						if ((err = pam_mysql_stream_ungetc(scanner->stream, c))) {
 							return err;
@@ -1897,7 +1897,7 @@ static pam_mysql_err_t pam_mysql_get_host_info(pam_mysql_ctx_t *ctx,
 			case AF_INET:
 				if (NULL == (retval = xcalloc(INET_ADDRSTRLEN, sizeof(char)))) {
 					syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "allocation failure at " __FILE__ ":%d", __LINE__);
-					xfree(hent);	
+					xfree(hent);
 					return PAM_MYSQL_ERR_ALLOC;
 				}
 
@@ -2089,7 +2089,7 @@ pam_mysql_err_t pam_mysql_retrieve_ctx(pam_mysql_ctx_t **pretval, pam_handle_t *
 			syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "allocation failure at " __FILE__ ":%d", __LINE__);
 			return PAM_MYSQL_ERR_ALLOC;
 		}
-		
+
 		/* give the data back to PAM for management */
 		if (pam_set_data(pamh, PAM_MODULE_NAME, (void*)*pretval, pam_mysql_cleanup_hdlr)) {
 			syslog(LOG_AUTHPRIV | LOG_CRIT, PAM_MYSQL_LOG_PREFIX "failed to set context to PAM at " __FILE__ ":%d", __LINE__);
@@ -2159,7 +2159,7 @@ pam_mysql_err_t pam_mysql_parse_args(pam_mysql_ctx_t *ctx, int argc, const char 
 	int param_changed = 0;
 	char *value = NULL;
 	int  i;
- 
+
 	/* process all the arguments */
 	for (i = 0; i < argc; i++) {
 		const char *name = argv[i];
@@ -2187,7 +2187,7 @@ pam_mysql_err_t pam_mysql_parse_args(pam_mysql_ctx_t *ctx, int argc, const char 
 			strnncpy(buf, sizeof(buf), name, name_len);
 			syslog(LOG_AUTHPRIV | LOG_INFO, PAM_MYSQL_LOG_PREFIX "option %s is set to \"%s\"", buf, value);
 		}
-	}	
+	}
 
 	/* close the database in case we get new args */
 	if (param_changed) {
@@ -2206,7 +2206,7 @@ static pam_mysql_err_t pam_mysql_read_config_file(pam_mysql_ctx_t *ctx,
 	pam_mysql_entry_handler_t handler;
 	pam_mysql_config_parser_t parser;
 	pam_mysql_stream_t stream;
-	
+
 
 	if ((err = pam_mysql_entry_handler_init(&handler, ctx))) {
 		return err;
@@ -2337,6 +2337,12 @@ static void pam_mysql_close_db(pam_mysql_ctx_t *ctx)
 		return; /* closed already */
 	}
 
+	/* Memory leak fix */
+	mysql_library_end();
+
+	/* if mysql server version < 4.1.10 */
+	/* mysql_server_end() */
+
 	mysql_close(ctx->mysql_hdl);
 
 	xfree(ctx->mysql_hdl);
@@ -2460,7 +2466,7 @@ static pam_mysql_err_t pam_mysql_format_string(pam_mysql_ctx_t *ctx,
 						if ((err = pam_mysql_str_append_char(pretval, *p))) {
 							goto out;
 						}
-		
+
 						state = 0;
 						commit_ptr = p + 1;
 						break;
@@ -2736,7 +2742,7 @@ static void pam_mysql_saltify(pam_mysql_ctx_t *ctx, char *salt, const char *salt
 	unsigned int i = 0;
 	char *q;
 	unsigned int seed = 0;
-	static const char saltstr[] = 
+	static const char saltstr[] =
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./";
 
 	if (ctx->verbose) {
@@ -2776,7 +2782,7 @@ static void pam_mysql_saltify(pam_mysql_ctx_t *ctx, char *salt, const char *salt
 
 	if (ctx->md5) {
 		*(q++) = '$';
-	}	
+	}
 	*q = '\0';
 
 	if (ctx->verbose) {
@@ -2785,7 +2791,7 @@ static void pam_mysql_saltify(pam_mysql_ctx_t *ctx, char *salt, const char *salt
 }
 /* }}} */
 
-/* {{{ pam_mysql_update_passwd 
+/* {{{ pam_mysql_update_passwd
  * Update the password in MySQL
  * To reduce the number of calls to the DB, I'm now assuming that the old
  * password has been verified elsewhere, so I only check for null/not null
@@ -3125,7 +3131,7 @@ out:
 /* {{{ pam_mysql_converse()
  */
 static pam_mysql_err_t pam_mysql_converse(pam_mysql_ctx_t *ctx, char ***pretval,
-		pam_handle_t *pamh, size_t nargs, ...) 
+		pam_handle_t *pamh, size_t nargs, ...)
 {
 	pam_mysql_err_t err = PAM_MYSQL_ERR_SUCCESS;
 	int perr;
@@ -3280,7 +3286,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags,
 	const char *rhost;
 	char *passwd = NULL;
 	pam_mysql_ctx_t *ctx = NULL;
-	char **resps = NULL; 
+	char **resps = NULL;
 	int passwd_is_local = 0;
 
 	switch (pam_mysql_retrieve_ctx(&ctx, pamh)) {
@@ -3332,7 +3338,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t * pamh, int flags,
 		syslog(LOG_AUTHPRIV | LOG_ERR, PAM_MYSQL_LOG_PREFIX "no user specified.");
 		retval = PAM_USER_UNKNOWN;
 		goto out;
-	} 
+	}
 
 	switch (pam_get_item(pamh, PAM_RHOST,
 			(PAM_GET_ITEM_CONST void **)&rhost)) {
@@ -3577,7 +3583,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t * pamh, int flags, int argc,
 		syslog(LOG_AUTHPRIV | LOG_ERR, PAM_MYSQL_LOG_PREFIX "no user specified.");
 		retval = PAM_USER_UNKNOWN;
 		goto out;
-	} 
+	}
 
 	switch (pam_get_item(pamh, PAM_RHOST,
 			(PAM_GET_ITEM_CONST void **)&rhost)) {
@@ -3847,7 +3853,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh,int flags,int argc,
 					break;
 
 				case PAM_NO_MODULE_DATA:
-					old_passwd = NULL; 
+					old_passwd = NULL;
 					break;
 
 				default:
@@ -3948,7 +3954,7 @@ PAM_EXTERN int pam_sm_chauthtok(pam_handle_t *pamh,int flags,int argc,
 			break;
 
 		case PAM_NO_MODULE_DATA:
-			new_passwd = NULL; 
+			new_passwd = NULL;
 			break;
 
 		default:
@@ -4214,7 +4220,7 @@ PAM_EXTERN int pam_sm_close_session(pam_handle_t *pamh, int flags, int argc,
 		syslog(LOG_AUTHPRIV | LOG_ERR, PAM_MYSQL_LOG_PREFIX "no user specified.");
 		retval = PAM_USER_UNKNOWN;
 		goto out;
-	} 
+	}
 
 	switch (pam_get_item(pamh, PAM_RHOST,
 			(PAM_GET_ITEM_CONST void **)&rhost)) {
@@ -4280,4 +4286,3 @@ struct pam_module _pam_mysql_modstruct = {
 /*
  * vim600: fdm=marker sw=4 ts=4 sts=4
  */
-
